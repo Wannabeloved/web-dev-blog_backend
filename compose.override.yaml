@@ -1,0 +1,40 @@
+services:
+  app:
+    build:
+      target: development
+    environment:
+      - NODE_ENV=development
+    develop:
+      watch:
+        # Отслеживание исходного кода
+        - path: ./src
+          target: /app/src
+          action: sync+restart
+          ignore:
+            - "**/*.test.js"
+            - "**/*.spec.js"
+        # Отслеживание конфигурационных файлов с пересборкой
+        - path: ./package.json
+          action: rebuild
+        - path: ./package-lock.json
+          action: rebuild
+        - path: ./Dockerfile
+          action: rebuild
+        - path: ./compose.override.yaml
+          action: rebuild
+        # Отслеживание основных файлов приложения
+        - path: ./main.js
+          target: /app/main.js
+          action: sync+restart
+        # Отслеживание переменных окружения
+        - path: ./.env
+          target: /app/.env
+          action: sync+restart
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: npm run dev # Будем использовать nodemon для разработки
+    # В dev режиме добавим инструменты для отладки
+    ports:
+      - "${PORT}:${PORT}" # Основной порт приложения
+      - "9229:9229" # Порт для отладки Node.js
