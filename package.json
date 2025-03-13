@@ -9,9 +9,10 @@
   "scripts": {
     "start": "node main.js",
     "dev": "node --watch --inspect=0.0.0.0:9229 main.js",
-    "test": "test"
+    "test": "echo \"test\""
   },
   "dependencies": {
+    "@types/mongoose": "^5.11.96",
     "bcrypt": "5.1.1",
     "cookie-parser": "1.4.7",
     "dotenv": "^16.4.5",
@@ -19,6 +20,5 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "8.12.1",
     "validator": "13.12.0"
-  },
-  "devDependencies": {}
+  }
 }

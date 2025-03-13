@@ -1,6 +1,7 @@
 services:
   app:
     build:
+      context: .
       target: development
     environment:
       - NODE_ENV=development
@@ -30,9 +31,6 @@ services:
         - path: ./.env
           target: /app/.env
           action: sync+restart
-    volumes:
-      - .:/app
-      - /app/node_modules
     command: npm run dev # Будем использовать nodemon для разработки
     # В dev режиме добавим инструменты для отладки
     ports:

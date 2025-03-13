@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import roles from "../../constants/roles";
+// import roles from "../constants/roles.js";
 import validator from "validator";
 
 const PostSchema = mongoose.Schema(
@@ -23,7 +23,7 @@ const PostSchema = mongoose.Schema(
     author: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      required: true,
+      // required: true,
     },
     comments: {
       type: [mongoose.Schema.Types.ObjectId],

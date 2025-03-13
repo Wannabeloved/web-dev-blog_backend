@@ -3,7 +3,6 @@ import dotenv from "dotenv";
 import { connectDB } from "./src/config/database.js";
 import { setupMiddleware } from "./src/middleware/index.js";
 import routes from "./src/routes/index.js";
-
 // Загрузка переменных окружения
 dotenv.config();
 
@@ -32,11 +31,13 @@ app.use((err, req, res, next) => {
 const startServer = async () => {
   try {
     await connectDB(MONGODB_URI);
+    console.log("MongoDB подключена:", MONGODB_URI.split("@")[1]);
+
     app.listen(PORT, () => {
       console.log(`Сервер запущен на порту ${PORT}`);
     });
   } catch (error) {
-    console.error("Не удалось запустить сервер:", error);
+    console.error("Ошибка при запуске сервера:", error);
     process.exit(1);
   }
 };
