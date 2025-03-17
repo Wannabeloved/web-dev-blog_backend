@@ -17,4 +17,20 @@ router.delete("/:commentId", async (req, res) => {
   res.send({ data: "Comment deleted" });
 });
 
+router.patch("/:commentId", async (req, res) => {
+  try {
+    const comment = await CommentController.editComment(
+      req.params.commentId,
+      req.body.content,
+      req.user.id
+    );
+    res.send({ data: mapComment(comment) });
+  } catch (error) {
+    res.status(403).send({
+      status: "error",
+      message: error.message,
+    });
+  }
+});
+
 export default router;

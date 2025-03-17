@@ -12,6 +12,7 @@ export default {
   getRoles,
   deleteUser,
   updateUser,
+  getUserByToken,
 };
 
 async function login(email, password) {
@@ -63,6 +64,20 @@ async function deleteUser(id) {
 }
 async function updateUser(id, user) {
   return await User.findByIdAndUpdate(id, user, { returnDocument: "after" });
+}
+async function getUserByToken(token) {
+  try {
+    const decoded = TokenHelper.verifyToken(token);
+    const user = await User.findById(decoded.id);
+
+    if (!user) {
+      throw new Error("Пользователь не найден");
+    }
+
+    return user;
+  } catch (err) {
+    throw new Error("Недействительный токен");
+  }
 }
 // delete user
 

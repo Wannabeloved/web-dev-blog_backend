@@ -31,7 +31,7 @@ services:
         - path: ./.env
           target: /app/.env
           action: sync+restart
-    command: npm run dev # Будем использовать nodemon для разработки
+    command: npm run dev
     # В dev режиме добавим инструменты для отладки
     ports:
       - "${PORT}:${PORT}" # Основной порт приложения
