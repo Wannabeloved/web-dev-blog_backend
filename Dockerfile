@@ -5,15 +5,14 @@ COPY package*.json ./
 
 # Этап разработки
 FROM base AS development
-RUN --mount=type=cache,target=/root/.npm \
-    npm install
+RUN npm install
+COPY . .
 USER node
 CMD ["npm", "run", "dev"]
 
 # Этап production сборки
 FROM base AS production
-RUN --mount=type=cache,target=/root/.npm \
-    npm ci
+RUN npm ci
 COPY . .
 # Устанавливаем wget для healthcheck
 RUN apk add --no-cache wget
